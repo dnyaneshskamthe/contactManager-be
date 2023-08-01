@@ -3,7 +3,8 @@ const cors=require('cors'); // Import the cors middleware
 const mongoose=require('mongoose'); // Import the mongoose module
 
 const app = express();
-const port = 5000;
+const port= process.env.PORT || 5000;
+require('dotenv').config()
 
 // Mock database to store users
 let users = [];
@@ -11,7 +12,7 @@ let users = [];
 //connect to databasea
 async function connectDB(){ 
     try {
-       await  mongoose.connect('mongodb+srv://dnyanesh451989:Dnyanesh45@cluster0.j9zoaz9.mongodb.net/?retryWrites=true&w=majority');
+       await  mongoose.connect(process.env.MONGODB_URL);
     } catch (error) {
         console.log(error);
         throw error("Database connection failed");
@@ -32,7 +33,7 @@ async function main(){
 
     // Start the server
     app.listen(port, () => {
-        console.log(`Server is running on http://localhost:${port}`);
+        console.log(`Server is running on ${port}`);
     });
 
 }
