@@ -25,6 +25,12 @@ async function main(){
     app.use(express.json());
     app.use(cors()); // Use the cors middleware to enable CORS for all routes
 
+    // Route to regster a user
+    app.use('/',require('./routes/registerRoutes'))
+
+    // Route to login a user
+    app.use('/',require('./routes/loginRoutes'))
+
     // Route to add a new user
     app.use('/', require('./routes/addUser'));
 
