@@ -31,6 +31,12 @@ async function main(){
     // Route to get all user data
     app.use('/',require('./routes/getUsers'));
 
+    // Route to delete a user
+    app.use('/',require('./routes/deleteUser'));
+
+    // Route to update a user
+    app.use('/',require('./routes/editUser'));
+
     // Start the server
     app.listen(port, () => {
         console.log(`Server is running on ${port}`);
