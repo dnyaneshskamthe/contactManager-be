@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const RegUser = require('../model/RegUser');
 
 router.post('/api/v1/login', async (req, res) => {
@@ -15,7 +16,7 @@ router.post('/api/v1/login', async (req, res) => {
     const user = await RegUser.findOne({ email });
 
     // Check if the user exists and the password matches
-    if (!user || user.password !== password) {
+    if (!user || !bcrypt.compareSync(password, user.password)) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
