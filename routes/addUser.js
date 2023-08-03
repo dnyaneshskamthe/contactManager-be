@@ -9,12 +9,15 @@ router.post('/addUser',checkAuth, async (req, res) => {
   if (!name || !contact) {
     return res.status(400).json({ error: 'Please provide name and contact' });
   }
-
+  // Get the owner's ID from the authenticated user
+  const ownerId = req.user.id; 
+  console.log(ownerId);
   // code to save the user to the database using Mongoose
   try {
     let newUser = new User({
         name : name,
-        contact : contact
+        contact : contact,
+        owner: ownerId,
     }) 
     await newUser.save()
      // Respond with a success message or the saved user data
