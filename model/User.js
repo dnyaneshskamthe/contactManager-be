@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const RegUser = require('./RegUser')
 
 // Define the user schema
 const userSchema = new mongoose.Schema({
@@ -10,6 +11,11 @@ const userSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  owner : {
+    type : mongoose.Schema.ObjectId,
+    ref : RegUser,
+    require : true
+  }
 });
 
 // Create the user model using the schema

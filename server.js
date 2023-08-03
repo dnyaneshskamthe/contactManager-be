@@ -1,6 +1,6 @@
 const express = require('express')
-const cors=require('cors'); // Import the cors middleware
-const mongoose=require('mongoose'); // Import the mongoose module
+const cors = require('cors'); // Import the cors middleware
+const mongoose = require('mongoose'); // Import the mongoose module
 
 const app = express();
 const port= process.env.PORT || 5000;
@@ -19,29 +19,37 @@ async function connectDB(){
     }
 }
 
+// import routes
+const register = require('./routes/registerRoutes');
+const login = require('./routes/loginRoutes')
+const addUser = require('./routes/addUser')
+const getUsers = require('./routes/getUsers')
+const deleteUser = require('./routes/deleteUser');
+const editUser = require('./routes/editUser')
+
 async function main(){
     await connectDB();
     // Middleware to parse incoming JSON data
     app.use(express.json());
     app.use(cors()); // Use the cors middleware to enable CORS for all routes
 
-    // Route to regster a user
-    app.use('/',require('./routes/registerRoutes'))
+    // Route to register a user
+    app.use('/api/v1/',register)
 
     // Route to login a user
-    app.use('/',require('./routes/loginRoutes'))
+    app.use('/api/v1',login)
 
     // Route to add a new user
-    app.use('/', require('./routes/addUser'));
+    app.use('/api/v1',addUser);
 
     // Route to get all user data
-    app.use('/',require('./routes/getUsers'));
+    app.use('/api/v1',getUsers);
 
     // Route to delete a user
-    app.use('/',require('./routes/deleteUser'));
+    app.use('/api/v1',deleteUser);
 
     // Route to update a user
-    app.use('/',require('./routes/editUser'));
+    app.use('/api/v1',editUser);
 
     // Start the server
     app.listen(port, () => {

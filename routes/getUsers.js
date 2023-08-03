@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/User')
+const checkAuth = require('../middleware/checkAuth')
 
-router.get('/api/v1/getUsers', async (req, res) => {
+router.get('/getUsers',checkAuth, async (req, res) => {
   // code to save the user to the database using Mongoose
   try {
     let userData= await User.find();

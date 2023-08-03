@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/User');
+const checkAuth = require('../middleware/checkAuth')
 
-router.post('/api/v1/editUser', async (req, res) => {
+router.post('/editUser',checkAuth, async (req, res) => {
   const { id, name, contact } = req.body;
-  console.log(id,name,contact);
+  console.log(req.headers);
 
   try {
     // Find the existing user by ID

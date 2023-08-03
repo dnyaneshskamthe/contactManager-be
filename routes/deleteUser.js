@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/User');
-
-router.post('/api/v1/deleteUser', async (req, res) => {
+const checkAuth = require('../middleware/checkAuth')
+router.post('/deleteUser',checkAuth, async (req, res) => {
   const { userId,id } = req.body;
-  console.log(userId,id);
 
   try {
-    console.log("delete request");
     const result = await User.deleteOne({
       _id: id,
     });

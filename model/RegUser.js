@@ -17,7 +17,10 @@ const regUserSchema = new mongoose.Schema({
   password : {
     type : String,
     requied : true
-  }
+  },
+  token: {
+    type: String,
+  },
 });
 
 // Create the user model using the schema

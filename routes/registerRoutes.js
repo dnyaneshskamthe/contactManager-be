@@ -4,7 +4,7 @@ const RegUser = require('../model/RegUser');
 const bcrypt = require('bcrypt');
 const saltRounds = 10; // for bcrypting password
 
-router.post('/api/v1/register', async (req, res) => {
+router.post('/register', async (req, res) => {
   const { name, email, contact, password } = req.body;
 
   // Basic validation - ensure name, email, contact, and password are provided
@@ -25,6 +25,7 @@ router.post('/api/v1/register', async (req, res) => {
         email: email,
         contact: contact,
         password: hash,
+        token: null, // or token: ''
       });
 
       // Save the user to the database

@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/User')
+const checkAuth = require('../middleware/checkAuth')
 
-router.post('/api/v1/addUser', async (req, res) => {
+router.post('/addUser',checkAuth, async (req, res) => {
   const { name, contact } = req.body;
   // Basic validation - ensure name and contact are provided
   if (!name || !contact) {

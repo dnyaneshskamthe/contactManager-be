@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const RegUser = require('../model/RegUser');
+const jwt = require('jsonwebtoken'); // Import jsonwebtoken library
 
-router.post('/api/v1/login', async (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
 
   // Basic validation - ensure email and password are provided
   if (!email || !password) {
@@ -20,8 +22,19 @@ router.post('/api/v1/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
+    // Create a payload for the JWT containing user data
+    const payload = {
+      id: user._id,
+      email: user.email,
+      name: user.name,
+    };
+     // Sign the JWT with the payload and a secret key
+     const secretKey = process.env.JWT_SECRET_KEY; // Replace this with your own secret key
+     const token = jwt.sign(payload, secretKey); // Set expiration time if needed
+     const userId = user._id;
+
     // Respond with a success message or the user data
-    return res.status(200).json({ message: 'Login successful', user });
+    return res.status(200).json({ message: 'Login successful', token,userId});
   } catch (error) {
     return res.status(500).json({ message: 'Failed to perform login' });
   }
