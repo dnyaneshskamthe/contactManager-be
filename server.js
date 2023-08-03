@@ -6,8 +6,13 @@ const app = express();
 const port= process.env.PORT || 5000;
 require('dotenv').config()
 
-// Mock database to store users
-let users = [];
+// Serve static files from the public folder
+app.use(express.static('public'));
+
+// Handle the root route and serve the index.html file
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
 
 //connect to databasea
 async function connectDB(){ 
