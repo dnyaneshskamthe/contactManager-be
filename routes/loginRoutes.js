@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken'); // Import jsonwebtoken library
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
 
   // Basic validation - ensure email and password are provided
   if (!email || !password) {
